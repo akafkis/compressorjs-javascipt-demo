@@ -1,0 +1,27 @@
+if(ENABLE_TESTING)
+    enable_testing()
+
+    # Google Test
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
+
+    # Google Mock
+    find_package(GMock REQUIRED)
+    include_directories(${GMOCK_INCLUDE_DIRS})
+
+    # Test Sources
+    set(TEST_SOURCES
+        tests/TestCompressor.cpp
+    )
+
+    # Test Executable
+    add_executable(compressor-tests ${TEST_SOURCES})
+    target_link_libraries(compressor-tests
+        ${GTEST_LIBRARIES}
+        ${GMOCK_LIBRARIES}
+        compressor-lib
+    )
+
+    # Run Tests
+    add_test(NAME compressor-tests COMMAND compressor-tests)
+endif()
